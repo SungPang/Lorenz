@@ -149,10 +149,49 @@ title(main="Gini Coefficients of OECD Countries")
 par(old.par)
 ```
 
+
+## ggplot
+
+### Data reshaping
+
+* `reshape2` package 를 검색 목록에 등록
+
+```{r}
+library(reshape2)
+(Gini.b.a.melt <- melt(Gini.b.a, id.vars = "Country", measure.vars = c("Before", "After"), variable.name = "Tax", value.name = "Gini.Coef"))
+str(Gini.b.a.melt)
+```
+
+* `ggplot2` 등록 후 `geom_bar()`
+
+```{r, fig.width=7, fig.height=9}
+library(ggplot2)
+ggplot(Gini.b.a.melt, aes(x = Country, y = Gini.Coef, fill = Tax)) + geom_bar(stat = "identity", position = "dodge") +
+  coord_flip()
+```
+
+* 개선도 순서대로 늘어세우려면 그 순서를 `level`로 갖는 `factor`로 만들어야함. `o.improvement`가 내림차순으로 정리되어 있는 순서이기 때문에 `rev(o.improvement)`는 올림차순으로 정리되어 있는 순서임. 따라서,
+
+```{r}
+Gini.b.a$Country.order <- factor(Gini.b.a$Country, levels = Gini.b.a$Country[rev(o.improvement)])
+Gini.b.a.order.melt <- melt(Gini.b.a, id.vars = "Country.order", measure.vars = c("Before", "After"), variable.name = "Tax", value.name = "Gini.Coef")
+str(Gini.b.a.order.melt)
+```
+
+* `Gini.b.a.order.melt`의 `Country.order`가 개선도 올림차순으로 정리되어 있는 `factor`이기 때문에 그대로 활용하면 됨.
+
+```{r, fig.width=7, fig.height=9}
+ggplot(Gini.b.a.order.melt, aes(x = Country.order, y = Gini.Coef, fill = Tax)) + geom_bar(stat = "identity", position = "dodge") +
+coord_flip()
+```
+
+* 한글 제목 등의 세부 작업은 차후에
+
+
 뒷 마무리
 ----------
 
-```
-save(file="Gini_OECD0504.rda", list=ls())
-savehistory("Gini_OECD0504.Rhistory")
+```{r}
+save(file="Gini_OECD1012.rda", list=ls())
+# savehistory("Gini_OECD102.Rhistory")
 ```

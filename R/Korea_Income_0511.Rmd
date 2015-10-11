@@ -1,5 +1,5 @@
 ---
-title: "Korean Income Distribution"
+title: "Korea Income Distribution"
 author: "coop711"
 date: "2015년 4월 12일"
 output: html_document
@@ -11,7 +11,7 @@ Data Management
 자료 입력
 
 ```{r}
-income.kor<-read.table("labor_income_kor.txt", header=T, row.names=1)
+income.kor<-read.table("../data/labor_income_kor.txt", header=T, row.names=1)
 income.kor
 str(income.kor)
 ```
