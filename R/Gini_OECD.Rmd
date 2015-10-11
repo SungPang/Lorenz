@@ -8,8 +8,8 @@ output: html_document
 OECD 국가들의 Gini계수 읽어들이기. 세전과 세후로 구분. 자료구조로 인하여 `sep="\t"`을 사용한 것에 유의 
 
 ```{r}
-Gini.b.tax<-read.table(file="Gini_before_tax.txt", header=F, sep="\t")
-Gini.a.tax<-read.table(file="Gini_after_tax.txt", header=F, sep="\t")
+Gini.b.tax<-read.table(file="../data/Gini_before_tax.txt", header=F, sep="\t")
+Gini.a.tax<-read.table(file="../data/Gini_after_tax.txt", header=F, sep="\t")
 str(Gini.b.tax)
 ```
 
@@ -124,7 +124,7 @@ barplot(as.matrix(t(Gini.b.a[order(Gini.b.a$Improvement, na.last=FALSE), 2:3])),
 par(old.par)
 ```
 
-이 때,  Ireland가 맨 위에 올라오는 게 보기 좋지 않으므로, `na.last=FLASE`를 추가한 것임.
+이 때,  Ireland가 맨 위에 올라오는 게 보기 좋지 않으므로, `na.last=FALSE`를 추가한 것임.
 
 세전 Gini 계수 0.4를 경계로 나눠보면
 
